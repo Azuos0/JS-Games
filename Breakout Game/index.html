@@ -20,11 +20,12 @@
     let y = canvas.height - 30;
     let dx = 2;
     let dy = -2;
+    let ballRadius = 10;
 
     //Draw the ball in the canvas
     function drawBall() {
         ctx.beginPath();
-        ctx.arc(x, y, 10, 0, Math.PI * 2);
+        ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
         ctx.fillStyle = "#0095DD";
         ctx.fill();
         ctx.closePath();
@@ -39,6 +40,16 @@
         //Update the ball's position 
         x += dx;
         y += dy;
+
+        //Business rule
+        if (y + dy < ballRadius || y + dy > canvas.height - ballRadius){
+            dy = -dy;
+        }
+
+        if (x + dx < ballRadius || x + dx > canvas.width-ballRadius){
+            dx = -dx;
+        }
+
     }
 
     //Interval that the draw function is called: 10 ms
