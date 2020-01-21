@@ -1,33 +1,48 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Gamedev Canvas Workshop</title>
-        <link href="style.css" rel="stylesheet">
-    </head>
-    <body>
-        <canvas id="myCanvas" width="480" height="320"></canvas>
-    </body>
-    <script>
-        let canvas = document.getElementById("myCanvas");
-        let ctx = canvas.getContext("2d");
 
+<head>
+    <meta charset="utf-8" />
+    <title>Gamedev Canvas Workshop</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="myCanvas" width="480" height="320"></canvas>
+</body>
+<script>
+    //canvas and context variables
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+
+    //Ball initial position
+    let x = canvas.width / 2;
+    let y = canvas.height - 30;
+    let dx = 2;
+    let dy = -2;
+
+    //Draw the ball in the canvas
+    function drawBall() {
         ctx.beginPath();
-        ctx.rect(20, 40, 50, 50);
-        ctx.fillStyle = "#FF0000";
+        ctx.arc(x, y, 10, 0, Math.PI * 2);
+        ctx.fillStyle = "#0095DD";
         ctx.fill();
         ctx.closePath();
+    }
 
-        ctx.beginPath();
-        ctx.arc(240, 160, 20, 0, Math.PI*2, false);
-        ctx.fillStyle = "green";
-        ctx.fill();
-        ctx.closePath();
+    function draw() {
+        //clear the canvas' rect on each frame before drawing
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.beginPath();
-        ctx.rect(160, 10, 10, 100, 40);
-        ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
-        ctx.stroke();
-        ctx.closePath();
-    </script>
+        drawBall();
+
+        //Update the ball's position 
+        x += dx;
+        y += dy;
+    }
+
+    //Interval that the draw function is called: 10 ms
+    setInterval(draw, 10);
+</script>
+
 </html>
