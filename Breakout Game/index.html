@@ -21,12 +21,13 @@
     let dx = 2;
     let dy = -2;
     let ballRadius = 10;
+    let ballColor = "#0095DD";
 
     //Draw the ball in the canvas
-    function drawBall() {
+    function drawBall(color) {
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = color;
         ctx.fill();
         ctx.closePath();
     }
@@ -35,25 +36,36 @@
         //clear the canvas' rect on each frame before drawing
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        drawBall();
+        drawBall(ballColor);
 
         //Update the ball's position 
         x += dx;
         y += dy;
 
         //Business rule
-        if (y + dy < ballRadius || y + dy > canvas.height - ballRadius){
+        if (y + dy < ballRadius || y + dy > canvas.height - ballRadius) {
             dy = -dy;
+            ballColor = getRandomColor();
         }
 
-        if (x + dx < ballRadius || x + dx > canvas.width-ballRadius){
+        if (x + dx < ballRadius || x + dx > canvas.width - ballRadius) {
             dx = -dx;
+            ballColor = getRandomColor();
         }
 
     }
 
     //Interval that the draw function is called: 10 ms
     setInterval(draw, 10);
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
 </script>
 
 </html>
